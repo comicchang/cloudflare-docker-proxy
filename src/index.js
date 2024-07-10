@@ -7,22 +7,24 @@ const dockerHub = "https://registry-1.docker.io";
 
 const routes = {
   // production
-  "docker.libcuda.so": dockerHub,
-  "quay.libcuda.so": "https://quay.io",
-  "gcr.libcuda.so": "https://gcr.io",
-  "k8s-gcr.libcuda.so": "https://k8s.gcr.io",
-  "k8s.libcuda.so": "https://registry.k8s.io",
-  "ghcr.libcuda.so": "https://ghcr.io",
-  "cloudsmith.libcuda.so": "https://docker.cloudsmith.io",
-  "ecr.libcuda.so": "https://public.ecr.aws",
+  "docker": dockerHub,
+  "quay": "https://quay.io",
+  "gcr": "https://gcr.io",
+  "k8s-gcr": "https://k8s.gcr.io",
+  "k8s": "https://registry.k8s.io",
+  "ghcr": "https://ghcr.io",
+  "cloudsmith": "https://docker.cloudsmith.io",
+  "ecr": "https://public.ecr.aws",
 
   // staging
-  "docker-staging.libcuda.so": dockerHub,
+  "docker-staging": dockerHub,
 };
 
 function routeByHosts(host) {
-  if (host in routes) {
-    return routes[host];
+  // extract prefix from host
+  const prefix = host.split(".")[0];
+  if (prefix in routes) {
+    return routes[prefix ];
   }
   if (MODE == "debug") {
     return TARGET_UPSTREAM;
